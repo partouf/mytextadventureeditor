@@ -16,6 +16,7 @@ public:
     virtual ~CRooms();
 
     QStringList GetRoomTitles();
+    CRoom *GetByIndex(int index);
 
     virtual void Load(const string folder) = 0;
 };

@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include "mytextadventure.h"
 #include "stdafx.h"
 
 using namespace MyTextAdventure;
@@ -41,4 +40,18 @@ void MainWindow::LoadRooms()
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::LoadDataIntoUI(const MyTextAdventure::CRoom *room)
+{
+    ui->edtRoomId->setValue(room->Id);
+    ui->edtRoomTitle->setText(room->Title.c_str());
+    ui->edtRoomDescription->setText(room->Description.c_str());
+}
+
+void MainWindow::on_lstRoomTitles_currentRowChanged(int currentRow)
+{
+    CRoom *selectedRoom = CGame::Instance()->Rooms->GetByIndex(currentRow);
+
+    LoadDataIntoUI(selectedRoom);
 }

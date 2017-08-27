@@ -28,3 +28,8 @@ QStringList MyTextAdventure::CRooms::GetRoomTitles()
 
     return lst;
 }
+
+MyTextAdventure::CRoom *MyTextAdventure::CRooms::GetByIndex(int index)
+{
+    return Rooms[index];
+}
