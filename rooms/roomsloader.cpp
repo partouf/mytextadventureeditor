@@ -91,7 +91,7 @@ QString MyTextAdventure::CRoomsFromJson::GetFilepathFromFolder(const string fold
    return filepath;
 }
 
-void MyTextAdventure::CRoomsFromJson::SaveToJson(const MyTextAdventure::CRoom *Room, QJsonObject &JsonRoom)
+void MyTextAdventure::CRoomsFromJson::SaveToJson(const MyTextAdventure::CRoom *Room, QJsonObject &JsonRoom) const
 {
    JsonRoom["Id"] = Room->Id;
    JsonRoom["Title"] = Room->Title.c_str();
@@ -133,7 +133,7 @@ void MyTextAdventure::CRoomsFromJson::SaveToJson(const MyTextAdventure::CRoom *R
    JsonRoom["Paths"] = jsonPaths;
 }
 
-void MyTextAdventure::CRoomsFromJson::Save(const string folder)
+void MyTextAdventure::CRoomsFromJson::Save(const string folder) const
 {
    auto filepath = GetFilepathFromFolder(folder);
    QFile saveFile(filepath);

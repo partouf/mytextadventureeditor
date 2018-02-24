@@ -13,11 +13,11 @@ protected:
 
     QString GetFilepathFromFolder(const string folder) const;
 
-    void SaveToJson(const CRoom *Room, QJsonObject &JsonRoom);
+    void SaveToJson(const CRoom *Room, QJsonObject &JsonRoom) const;
 public:
     void Load(const string folder);
 
-    void Save(const string folder);
+    void Save(const string folder) const;
 };
 
 

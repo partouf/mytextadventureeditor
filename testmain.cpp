@@ -18,7 +18,7 @@ int main() {
 
    CGame::Instance()->Rooms = std::move(rooms);
 
-   double nextroomid = floor(CGame::Instance()->Rooms->GetMaxRoomId()) + 1.0;
+   //double nextroomid = floor(CGame::Instance()->Rooms->GetMaxRoomId()) + 1.0;
 
    //CGame::Instance()->Rooms->AddRoom(nextroomid);
 
