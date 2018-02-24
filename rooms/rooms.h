@@ -17,6 +17,13 @@ public:
 
     QStringList GetRoomTitles();
     CRoom *GetByIndex(int index);
+    size_t Count() const;
+
+    QString FormatRoomTitle(const CRoom *room) const;
+
+    double GetMaxRoomId();
+
+    CRoom *AddRoom(double id);
 
     virtual void Load(const string folder) = 0;
 };

@@ -39,7 +39,8 @@ HEADERS += \
     items/item.h \
     mytextadventure.h \
     game.h \
-    rooms/roomsloader.h
+    rooms/roomsloader.h \
+    common/split.h
 
 FORMS += \
         mainwindow.ui
