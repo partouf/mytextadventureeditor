@@ -45,9 +45,6 @@
     <ClCompile Include="testmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="common\split.cpp">
-      <Filter>Source Files\common</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h">

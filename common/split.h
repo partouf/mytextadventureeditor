@@ -2,9 +2,22 @@
 
 #include "../stdafx.h"
 
-namespace str
+namespace StrUtils
 {
-   std::vector<std::string> split(const std::string &input, const std::string& regex);
+   template <class T>
+   std::vector<T> split(const T &input, const T &rex) {
+      std::vector<T> items;
+
+      std::regex re(rex);
+      std::sregex_token_iterator regiter(input.begin(), input.end(), re, -1);
+      std::sregex_token_iterator regend;
+
+      while (regiter != regend)
+      {
+         items.emplace_back(*regiter++);
+      }
+
+      return items;
+   }
+
 }
-
-

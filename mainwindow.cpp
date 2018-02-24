@@ -67,13 +67,14 @@ void MainWindow::on_lstRoomTitles_currentRowChanged(int currentRow)
 
 void MainWindow::on_actionAdd_room_triggered()
 {
-    double nextRoomID = floor(CGame::Instance()->Rooms->GetMaxRoomId()) + 1.0;
+    auto rooms = CGame::Instance()->Rooms.get();
 
-    auto newRoom = CGame::Instance()->Rooms->AddRoom(nextRoomID);
+    double nextRoomID = floor(rooms->GetMaxRoomId()) + 1.0;
+    auto newRoom = rooms->AddRoom(nextRoomID);
 
     RefreshRoomList();
 
-    int rowCount = (int)CGame::Instance()->Rooms->Count();
+    int rowCount = (int)rooms->Count();
     ui->lstRoomTitles->setCurrentRow(rowCount - 1);
     LoadDataIntoUI(newRoom);
 

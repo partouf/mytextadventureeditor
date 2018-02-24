@@ -13,18 +13,20 @@ void DoSave(CRooms *rooms)
 }
 
 int main() {
-   std::unique_ptr<CRoomsFromJson> rooms = std::make_unique<CRoomsFromJson>();
-   rooms->Load("../mytextadventure");
+   std::unique_ptr<CRoomsFromJson> loader = std::make_unique<CRoomsFromJson>();
+   loader->Load("../mytextadventure");
 
-   CGame::Instance()->Rooms = std::move(rooms);
+   CGame::Instance()->Rooms = std::move(loader);
 
-   //double nextroomid = floor(CGame::Instance()->Rooms->GetMaxRoomId()) + 1.0;
+   auto rooms = CGame::Instance()->Rooms.get();
+
+   //double nextroomid = floor(rooms->GetMaxRoomId()) + 1.0;
 
    //CGame::Instance()->Rooms->AddRoom(nextroomid);
 
-   CGame::Instance()->Rooms->GetRoomTitles();
+   rooms->GetRoomTitles();
 
-   DoSave(CGame::Instance()->Rooms.get());
+   DoSave(rooms);
 
    return 0;
 }

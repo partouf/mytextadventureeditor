@@ -97,7 +97,7 @@ void MyTextAdventure::CRoomsFromJson::SaveToJson(const MyTextAdventure::CRoom *R
    JsonRoom["Title"] = Room->Title.c_str();
    if (Room->Description.find("\n") != -1)
    {
-      vector<string> lines = str::split(Room->Description, "\n");
+      auto lines = StrUtils::split<string>(Room->Description, "\n");
 
       QJsonArray jsonLines;
       for (auto line : lines)
