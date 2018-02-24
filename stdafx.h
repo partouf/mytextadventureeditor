@@ -8,6 +8,8 @@
 #include <iostream>
 #include <sstream>
 #include <iterator>
+#include <regex>
+
 #include "common/split.h"
 
 using namespace std;

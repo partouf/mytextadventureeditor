@@ -28,6 +28,9 @@
     <Filter Include="Header Files\common">
       <UniqueIdentifier>{4c58485e-5d49-498a-b331-11b563375782}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\common">
+      <UniqueIdentifier>{0f02e9d6-7be6-4f61-94e3-c545ad03108c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="game.cpp">
@@ -41,6 +44,9 @@
     </ClCompile>
     <ClCompile Include="testmain.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="common\split.cpp">
+      <Filter>Source Files\common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -2,11 +2,9 @@
 
 #include "../stdafx.h"
 
-template<typename Out>
-void split(const std::string &s, char delim, Out result) {
-   std::stringstream ss(s);
-   std::string item;
-   while (std::getline(ss, item, delim)) {
-      *(result++) = item;
-   }
+namespace str
+{
+   std::vector<std::string> split(const std::string &input, const std::string& regex);
 }
+
+

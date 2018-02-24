@@ -160,6 +160,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="common\split.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="rooms\rooms.cpp" />
     <ClCompile Include="rooms\roomsloader.cpp" />
