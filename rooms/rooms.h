@@ -20,6 +20,7 @@ public:
     size_t Count() const;
 
     QString FormatRoomTitle(const CRoom *room) const;
+    QString FormatPathTitle(const path_t path) const;
 
     double GetMaxRoomId();
 

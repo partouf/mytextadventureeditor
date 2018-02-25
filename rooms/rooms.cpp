@@ -36,6 +36,16 @@ QString MyTextAdventure::CRooms::FormatRoomTitle(const MyTextAdventure::CRoom *r
     return title;
 }
 
+QString MyTextAdventure::CRooms::FormatPathTitle(const path_t path) const
+{
+    QString title = "";
+    title.append(QString::number(path.Room, '.', 1));
+    title.append(" - ");
+    title.append(path.Title.c_str());
+
+    return title;
+}
+
 QStringList MyTextAdventure::CRooms::GetRoomTitles()
 {
     QStringList lst;

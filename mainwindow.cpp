@@ -1,7 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
 #include "stdafx.h"
+#include "pathwindow.h"
+#include "itemwindow.h"
 
 using namespace MyTextAdventure;
 
@@ -55,6 +56,19 @@ void MainWindow::LoadDataIntoUI(MyTextAdventure::CRoom *room)
     ui->edtRoomId->setValue(room->Id);
     ui->edtRoomTitle->setText(room->Title.c_str());
     ui->edtRoomDescription->setText(room->Description.c_str());
+
+    auto rooms = CGame::Instance()->Rooms.get();
+
+    ui->lstPaths->clear();
+    for (auto path : selectedRoom->Paths)
+    {
+        ui->lstPaths->addItem(rooms->FormatPathTitle(path));
+    }
+}
+
+void MainWindow::ReloadRoom()
+{
+    LoadDataIntoUI(selectedRoom);
 }
 
 void MainWindow::on_lstRoomTitles_currentRowChanged(int currentRow)
@@ -104,4 +118,26 @@ void MainWindow::on_edtRoomTitle_textChanged(const QString &arg1)
         auto rowText = CGame::Instance()->Rooms->FormatRoomTitle(selectedRoom);
         ui->lstRoomTitles->currentItem()->setText(rowText);
     }
+}
+
+void MainWindow::on_btnAddPath_clicked()
+{
+    path_t p;
+
+    PathWindow dlg(this);
+    dlg.LoadPath(p);
+    if (dlg.exec() != 0)
+    {
+        dlg.SavePath(&p);
+
+        selectedRoom->Paths.emplace_back(p);
+
+        ReloadRoom();
+    }
+}
+
+void MainWindow::on_btnAddItem_clicked()
+{
+    ItemWindow dlg(this);
+    dlg.exec();
 }

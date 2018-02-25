@@ -27,10 +27,15 @@ private slots:
 
     void on_edtRoomTitle_textChanged(const QString &arg1);
 
+    void on_btnAddPath_clicked();
+
+    void on_btnAddItem_clicked();
+
 private:
     Ui::MainWindow *ui;
     MyTextAdventure::CRoom *selectedRoom;
 
+    void ReloadRoom();
     void LoadRooms();
     void SaveRooms();
     void RefreshRoomList();
