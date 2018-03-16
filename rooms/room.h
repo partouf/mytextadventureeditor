@@ -28,7 +28,7 @@ class CRoom: public CRoomData
 {
 protected:
 public:
-
+    void RemoveItem(itemid_t id);
 };
 
 }

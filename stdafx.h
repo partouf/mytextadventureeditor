@@ -9,6 +9,7 @@
 #include <sstream>
 #include <iterator>
 #include <regex>
+#include <algorithm>
 
 #include "common/split.h"
 

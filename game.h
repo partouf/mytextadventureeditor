@@ -8,6 +8,7 @@ namespace MyTextAdventure
     {
     public:
         std::unique_ptr<CRooms> Rooms;
+        std::unique_ptr<CItems> Items;
 
         static CGame *Instance();
     };

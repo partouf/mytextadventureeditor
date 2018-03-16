@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     LoadRooms();
+    LoadItems();
 }
 
 void MainWindow::RefreshRoomList()
@@ -36,6 +37,21 @@ void MainWindow::LoadRooms()
     }
 
     RefreshRoomList();
+}
+
+void MainWindow::LoadItems()
+{
+    try
+    {
+        std::unique_ptr<CItemsFromJson> items = std::make_unique<CItemsFromJson>();
+        items->Load("../mytextadventure");
+
+        CGame::Instance()->Items = std::move(items);
+    }
+    catch(const std::exception &e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
 }
 
 void MainWindow::SaveRooms()
@@ -63,6 +79,15 @@ void MainWindow::LoadDataIntoUI(MyTextAdventure::CRoom *room)
     for (auto path : selectedRoom->Paths)
     {
         ui->lstPaths->addItem(rooms->FormatPathTitle(path));
+    }
+
+    auto items = CGame::Instance()->Items.get();
+
+    ui->lstItems->clear();
+    for (auto item : selectedRoom->Items)
+    {
+        auto itemdata = items->GetByItemId(item);
+        ui->lstItems->addItem(itemdata->Title.c_str());
     }
 }
 
@@ -139,5 +164,23 @@ void MainWindow::on_btnAddPath_clicked()
 void MainWindow::on_btnAddItem_clicked()
 {
     ItemWindow dlg(this);
-    dlg.exec();
+    if (dlg.exec() != 0)
+    {
+        auto item = dlg.SelectedItem();
+        if (item != nullptr)
+        {
+            selectedRoom->Items.emplace_back(item->Id);
+
+            ReloadRoom();
+        }
+    }
+}
+
+void MainWindow::on_btnDelItem_clicked()
+{
+    auto idx = ui->lstItems->currentRow();
+    auto id = selectedRoom->Items.at(idx);
+    selectedRoom->RemoveItem(id);
+
+    ReloadRoom();
 }

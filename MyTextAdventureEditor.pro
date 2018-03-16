@@ -31,7 +31,10 @@ SOURCES += \
     game.cpp \
     rooms/roomsloader.cpp \
     itemwindow.cpp \
-    pathwindow.cpp
+    pathwindow.cpp \
+    items/itemsloader.cpp \
+    items/items.cpp \
+    rooms/room.cpp
 
 
 HEADERS += \
@@ -45,7 +48,9 @@ HEADERS += \
     rooms/roomsloader.h \
     common/split.h \
     itemwindow.h \
-    pathwindow.h
+    pathwindow.h \
+    items/items.h \
+    items/itemsloader.h
 
 FORMS += \
         mainwindow.ui \

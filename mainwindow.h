@@ -31,6 +31,8 @@ private slots:
 
     void on_btnAddItem_clicked();
 
+    void on_btnDelItem_clicked();
+
 private:
     Ui::MainWindow *ui;
     MyTextAdventure::CRoom *selectedRoom;
@@ -38,6 +40,7 @@ private:
     void ReloadRoom();
     void LoadRooms();
     void SaveRooms();
+    void LoadItems();
     void RefreshRoomList();
     void LoadDataIntoUI(MyTextAdventure::CRoom *room);
 };
