@@ -25,11 +25,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        main.cpp \
-        mainwindow.cpp \
+    main.cpp \
+    mainwindow.cpp \
     rooms/rooms.cpp \
     game.cpp \
-    rooms/roomsloader.cpp
+    rooms/roomsloader.cpp \
+    itemwindow.cpp \
+    pathwindow.cpp \
+    items/itemsloader.cpp \
+    items/items.cpp \
+    rooms/room.cpp
 
 
 HEADERS += \
@@ -41,7 +46,13 @@ HEADERS += \
     mytextadventure.h \
     game.h \
     rooms/roomsloader.h \
-    common/split.h
+    common/split.h \
+    itemwindow.h \
+    pathwindow.h \
+    items/items.h \
+    items/itemsloader.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    itemwindow.ui \
+    pathwindow.ui

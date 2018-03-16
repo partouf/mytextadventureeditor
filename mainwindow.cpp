@@ -1,7 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
 #include "stdafx.h"
+#include "pathwindow.h"
+#include "itemwindow.h"
 
 using namespace MyTextAdventure;
 
@@ -12,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     LoadRooms();
+    LoadItems();
 }
 
 void MainWindow::RefreshRoomList()
@@ -37,6 +39,21 @@ void MainWindow::LoadRooms()
     RefreshRoomList();
 }
 
+void MainWindow::LoadItems()
+{
+    try
+    {
+        std::unique_ptr<CItemsFromJson> items = std::make_unique<CItemsFromJson>();
+        items->Load("../mytextadventure");
+
+        CGame::Instance()->Items = std::move(items);
+    }
+    catch(const std::exception &e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
+}
+
 void MainWindow::SaveRooms()
 {
     CRoomsFromJson *rooms = reinterpret_cast<CRoomsFromJson *>(CGame::Instance()->Rooms.get());
@@ -55,6 +72,28 @@ void MainWindow::LoadDataIntoUI(MyTextAdventure::CRoom *room)
     ui->edtRoomId->setValue(room->Id);
     ui->edtRoomTitle->setText(room->Title.c_str());
     ui->edtRoomDescription->setText(room->Description.c_str());
+
+    auto rooms = CGame::Instance()->Rooms.get();
+
+    ui->lstPaths->clear();
+    for (auto path : selectedRoom->Paths)
+    {
+        ui->lstPaths->addItem(rooms->FormatPathTitle(path));
+    }
+
+    auto items = CGame::Instance()->Items.get();
+
+    ui->lstItems->clear();
+    for (auto item : selectedRoom->Items)
+    {
+        auto itemdata = items->GetByItemId(item);
+        ui->lstItems->addItem(itemdata->Title.c_str());
+    }
+}
+
+void MainWindow::ReloadRoom()
+{
+    LoadDataIntoUI(selectedRoom);
 }
 
 void MainWindow::on_lstRoomTitles_currentRowChanged(int currentRow)
@@ -104,4 +143,44 @@ void MainWindow::on_edtRoomTitle_textChanged(const QString &arg1)
         auto rowText = CGame::Instance()->Rooms->FormatRoomTitle(selectedRoom);
         ui->lstRoomTitles->currentItem()->setText(rowText);
     }
+}
+
+void MainWindow::on_btnAddPath_clicked()
+{
+    path_t p;
+
+    PathWindow dlg(this);
+    dlg.LoadPath(p);
+    if (dlg.exec() != 0)
+    {
+        dlg.SavePath(&p);
+
+        selectedRoom->Paths.emplace_back(p);
+
+        ReloadRoom();
+    }
+}
+
+void MainWindow::on_btnAddItem_clicked()
+{
+    ItemWindow dlg(this);
+    if (dlg.exec() != 0)
+    {
+        auto item = dlg.SelectedItem();
+        if (item != nullptr)
+        {
+            selectedRoom->Items.emplace_back(item->Id);
+
+            ReloadRoom();
+        }
+    }
+}
+
+void MainWindow::on_btnDelItem_clicked()
+{
+    auto idx = ui->lstItems->currentRow();
+    auto id = selectedRoom->Items.at(idx);
+    selectedRoom->RemoveItem(id);
+
+    ReloadRoom();
 }
